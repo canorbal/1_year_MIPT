@@ -1,24 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-
+#include <errno.h>
+#include <string.h>
 
 struct Node
 {
-    int Data;
-    struct Node *next;
+	int Data;
+	struct Node *next;
 };
 
 struct List
 {
-    struct Node *head;
+	struct Node *head;
 };
 
 struct List * list_new()
 {
-    struct List *list;
-    list = (struct List *) malloc(sizeof(struct List));
-    return  list;
+	struct List *list;
+	list = (struct List *) malloc(sizeof(struct List));
+	if (list == NULL)
+	{
+		fprintf(stderr, "Can't allocate memory: %s\n", strerror(errno));	}
+   	return  list;
 }
 
 void insert(struct List *list, int a)
