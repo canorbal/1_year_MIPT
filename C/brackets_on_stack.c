@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 
 struct Node
 {
@@ -31,7 +32,7 @@ int IsEmpty(struct List* list)
 
 void push(struct List *list, char a)
 {
-    
+
     if (IsEmpty(list)==0)
     {
         struct Node *node;
@@ -45,7 +46,7 @@ void push(struct List *list, char a)
     struct Node *node;
     node=(struct Node *)malloc(sizeof(struct Node));
     node->Data=a;
-    
+
     node->next=NULL;
     node->back=list->head;
     node->back->next=node;
@@ -56,18 +57,18 @@ void unshift(struct List *list, char a)
 {
     struct Node *node_pointer;
     node_pointer=list->head;
-    
+
     if (node_pointer==NULL)
     {
         push(list, a);
         return;
     }
-    
+
     while (node_pointer->back!=NULL)
     {
         node_pointer=node_pointer->back;
     }
-    
+
     struct Node *Node;
     Node=(struct Node *) malloc(sizeof(struct Node));
     Node->Data=a;
@@ -126,7 +127,7 @@ void list_reverse(struct List* list)
     struct List* list_revers;
     list_revers = list_new();
     struct Node * node;
-    
+
     if (IsEmpty(list)==0)
     {
         return;
@@ -139,17 +140,17 @@ void list_reverse(struct List* list)
         node=node->back;
         free(free_node);
     }
-    
-    
+
+
     *list=*list_revers;
-    
+
 }
 
 int main()
 {
     struct List* list;
     list=list_new();
-    
+
     char s=1;
     while (s!='\n')
     {
@@ -162,43 +163,43 @@ int main()
         {
             char x;
             pop(list, &x);
-            
+
             if (x!='(')
             {
                 printf("NO");
                 break;
             }
         }
-        
+
         if (s=='}')
         {
             char x;
             pop(list, &x);
-            
+
             if (x!='{')
             {
                 printf("NO");
                 break;
             }
         }
-        
+
         if (s=='>')
         {
             char x;
             pop(list, &x);
-            
+
             if (x!='<')
             {
                 printf("NO");
                 break;
             }
         }
-        
+
         if (s==']')
         {
             char x;
             pop(list, &x);
-            
+
             if (x!='[')
             {
                 printf("NO");
@@ -206,12 +207,12 @@ int main()
             }
         }
     }
-    
+
     if (IsEmpty(list)==0)
     {
         printf("YES");
     } else printf("NO");
-    
-    
+
+
     return 0;
 }
