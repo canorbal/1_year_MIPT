@@ -32,7 +32,6 @@ int IsEmpty(struct List* list)
 
 void push(struct List *list, char a)
 {
-
     if (IsEmpty(list)==0)
     {
         struct Node *node;
@@ -212,7 +211,6 @@ int main()
     {
         printf("YES");
     } else printf("NO");
-
 
     return 0;
 }

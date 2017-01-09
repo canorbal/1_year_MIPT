@@ -30,8 +30,7 @@ int IsEmpty(struct List* list)
 }
 
 void push(struct List *list, int a)
-{
-    
+{    
     if (IsEmpty(list)==0)
     {
         struct Node *node;
@@ -140,9 +139,7 @@ void list_reverse(struct List* list)
         free(free_node);
     }
 
-    
-    *list=*list_revers;
-    
+    *list=*list_revers;   
 }
 
 
@@ -151,13 +148,8 @@ int main()
 {
     struct List* list;
     list=list_new();
-    
     int x;
     push(list, 10);
-    
     pop(list, &x);
-    
-    int b;
-    
     return 0;
 }

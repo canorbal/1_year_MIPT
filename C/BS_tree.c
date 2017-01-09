@@ -88,7 +88,6 @@ void push(struct Tree* tree,  int key, double Data)
     struct Node* node;
     node=(struct Node *) malloc(sizeof(struct Node));
     
-
     node->key=key;
     node->Data=Data;
     node->deep=0;
@@ -135,7 +134,6 @@ void delete(struct Tree* tree, int key, double Data)
     struct Node* node;
     node=tree->head;
     
-
     struct Node* back;
     back=tree->head;
     
@@ -198,11 +196,8 @@ void delete(struct Tree* tree, int key, double Data)
                 free(node);
             }
         }
-
         break;
     }
-    
-    
 }
 
 void wfs(struct Tree *tree)

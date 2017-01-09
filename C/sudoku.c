@@ -32,9 +32,7 @@ int main(int argc, const char * argv[])
         }
         fprintf(stdout, "\n");
     }
-    
     return 0;
-    
 }
 
 
@@ -61,23 +59,11 @@ void enter(int* a)
     static int count_of_enter=0;
     count_of_enter++;
     
-    
     if (count_of_enter==19)
     {
         int adfasdfasdf=0;
     }
-    
-    /*fprintf(stdout, "\n");
-    for (i=0; i<9; i++)
-    {
-        for (j=0; j<9; j++)
-        {
-            fprintf(stdout, "%d ", a[i*9+j]);
-        }
-        fprintf(stdout, "\n");
-    }
-    fprintf(stdout, "\n");  */
-    
+   
     int end=check(a);  //проверка заполнен ли
     if (end==1)
     {
@@ -92,11 +78,8 @@ void enter(int* a)
             }
         }
         return ;
-    }
-
-    
+    }    
     int k=0;
-    
     int array[81][9];  //для числа во 2-ой строке третий слева array[11][]
     for (i=0; i<9; i++)
     {

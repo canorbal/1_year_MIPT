@@ -1,6 +1,5 @@
 //работает только с цифрами
 
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -34,7 +33,6 @@ int IsEmpty(struct List* list)
 
 void push(struct List *list, int a)
 {
-    
     if (IsEmpty(list)==0)
     {
         struct Node *node;
@@ -142,10 +140,7 @@ void list_reverse(struct List* list)
         node=node->back;
         free(free_node);
     }
-    
-    
-    *list=*list_revers;
-    
+    *list=*list_revers;    
 }
 
 int result()
@@ -201,8 +196,6 @@ int result()
 
 int main()
 {
-    printf("%d", result());
-    
-    
+    printf("%d", result());   
     return 0;
 }
