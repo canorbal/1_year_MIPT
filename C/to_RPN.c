@@ -1,6 +1,3 @@
-
-
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -34,7 +31,6 @@ int IsEmpty(struct List* list)
 
 void push(struct List *list, char a)
 {
-    
     if (IsEmpty(list)==0)
     {
         struct Node *node;
@@ -48,7 +44,6 @@ void push(struct List *list, char a)
     struct Node *node;
     node=(struct Node *)malloc(sizeof(struct Node));
     node->Data=a;
-    
     node->next=NULL;
     node->back=list->head;
     node->back->next=node;
@@ -59,18 +54,15 @@ void unshift(struct List *list, char a)
 {
     struct Node *node_pointer;
     node_pointer=list->head;
-    
     if (node_pointer==NULL)
     {
         push(list, a);
         return;
     }
-    
     while (node_pointer->back!=NULL)
     {
         node_pointer=node_pointer->back;
     }
-    
     struct Node *Node;
     Node=(struct Node *)malloc(sizeof(struct Node));
     Node->Data=a;
@@ -88,7 +80,7 @@ int pop(struct List *list, char *x)
     *x=list->head->Data;
     struct Node* node=list->head;
     list->head=list->head->back;
-    free((struct Node *)node); //функцию free добить
+    free(node); 
     if (IsEmpty(list)==1)
     {
         list->head->next=NULL;
@@ -142,17 +134,13 @@ void list_reverse(struct List* list)
         node=node->back;
         free(free_node);
     }
-    
-    
-    *list=*list_revers;
-    
+    *list=*list_revers;   
 }
 
 int main()
 {
     struct List* list;
     list=list_new();
-    
     char s=1;
     while (s!='\n')
     {
@@ -228,10 +216,8 @@ int main()
                 }
                 else break;
             }
-            pop(list, &x);
-            
+            pop(list, &x);        
         }
-
     }
     
     while (IsEmpty(list)==1)

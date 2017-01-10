@@ -35,7 +35,6 @@ int main(int argc, const char * argv[])
     return 0;
 }
 
-
 void Input(int* a)
 {
     int i,j;
@@ -187,7 +186,6 @@ void enter(int* a)
             }
             return ;
         }
-        
         return;
     }
     ///  закончилась проверка на возможность заполнения
@@ -324,7 +322,6 @@ void enter(int* a)
             }
         }
 
-        
         if (min_of_variants==10000)
         {
             return;
@@ -388,10 +385,7 @@ void enter(int* a)
     delet(a, array, 3, 6);
     delet(a, array, 6, 0);
     delet(a, array, 6, 3);
-    delet(a, array, 6, 6);
-    
-    
-    
+    delet(a, array, 6, 6);    
 }
 
 void delet(int* a, int* array, int i, int j)

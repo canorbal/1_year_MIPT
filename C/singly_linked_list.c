@@ -37,11 +37,10 @@ int insert(struct List *list, int a)
         fprintf(stderr, "Error in creating Node with data = %d\n", a);
         return -1;
     }
-    
     node->Data = a;
     node->next = list->head;
     list->head = node;
-    return 0; 
+    return 0;
 }
 
 void print(struct List *list)
@@ -103,7 +102,6 @@ void list_delete(struct List *list)
         free(node_free);
         node_free = NULL;
     }
-    
     list->head = NULL;
 }
 

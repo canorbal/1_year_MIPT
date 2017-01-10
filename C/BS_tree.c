@@ -18,7 +18,7 @@ struct Tree
 struct Tree* new_tree()
 {
     struct Tree *tree;
-    tree=(struct Tree*) malloc(sizeof(struct Tree));
+    tree = (struct Tree*) malloc(sizeof(struct Tree));
     return tree;
 }
 
@@ -34,47 +34,45 @@ struct Queue
 };
 
 
-
 struct Queue* new_queue()
 {
     struct Queue* queue;
-    queue=(struct Queue *)malloc(sizeof(queue));
+    queue = (struct Queue *) malloc(sizeof(queue));
     return queue;
 }
 
 void push_queue(struct Queue* queue, struct Node* node)
 {
     struct Node_queue *node_queue;
-    node_queue=(struct Node_queue*) malloc(sizeof(struct Node_queue));
-    node_queue->node=node;
-    node_queue->back=NULL;
+    node_queue = (struct Node_queue*) malloc(sizeof(struct Node_queue));
+    node_queue->node = node;
+    node_queue->back = NULL;
     struct Node_queue *pointer;
-    pointer=queue->head;
-    
-    if (pointer==NULL)
+    pointer = queue->head;
+    if (pointer == NULL)
     {
-        queue->head=node_queue;
+        queue->head = node_queue;
         return;
     }
-    while (pointer->back!=NULL)
+    while (pointer->back != NULL)
     {
-        pointer=pointer->back;
+        pointer = pointer->back;
     }
-    pointer->back=node_queue;
+    pointer->back = node_queue;
 }
 
 void pop_queue(struct Queue* queue, struct Node **x)
 {
-    *x=queue->head->node;
+    *x = queue->head->node;
     struct Node_queue* node;
-    node=queue->head;
-    queue->head=queue->head->back;
+    node = queue->head;
+    queue->head = queue->head->back;
     free(node);
 }
 
 int IsEmptyQueue(struct Queue* queue)
 {
-    if (queue->head==NULL)
+    if (queue->head == NULL)
     {
         return 0;
     }
@@ -86,43 +84,43 @@ int IsEmptyQueue(struct Queue* queue)
 void push(struct Tree* tree,  int key, double Data)
 {
     struct Node* node;
-    node=(struct Node *) malloc(sizeof(struct Node));
+    node = (struct Node *) malloc(sizeof(struct Node));
     
-    node->key=key;
-    node->Data=Data;
-    node->deep=0;
-    node->left=NULL;
-    node->right=NULL;
+    node->key = key;
+    node->Data = Data;
+    node->deep = 0;
+    node->left = NULL;
+    node->right = NULL;
     
-    if (tree->head==NULL)
+    if (tree->head == NULL)
     {
-        tree->head=node;
+        tree->head = node;
         return;
     }
     struct Node* pointer;
-    pointer=tree->head;
+    pointer = tree->head;
     while (1)
     {
-        if (node->key>pointer->key)
+        if (node->key > pointer->key)
         {
-            if (pointer->right==NULL)
+            if (pointer->right == NULL)
             {
-                pointer->right=node;
+                pointer->right = node;
                 node->deep++;
                 break;
             }
-            pointer=pointer->right;
+            pointer = pointer->right;
             node->deep++;
         }
-        if (node->key<=pointer->key)
+        if (node->key <= pointer->key)
         {
-            if (pointer->left==NULL)
+            if (pointer->left == NULL)
             {
-                pointer->left=node;
+                pointer->left = node;
                 node->deep++;
                 break;
             }
-            pointer=pointer->left;
+            pointer = pointer->left;
             node->deep++;
         }
     }
@@ -132,66 +130,65 @@ void push(struct Tree* tree,  int key, double Data)
 void delete(struct Tree* tree, int key, double Data)
 {
     struct Node* node;
-    node=tree->head;
+    node = tree->head;
     
     struct Node* back;
-    back=tree->head;
+    back = tree->head;
     
-    int count=0;
+    int count = 0;
     while (1)
     {
-        
-        if (key>node->key)
+        if (key > node->key)
         {
-            back=node;
-            node=node->right;
+            back = node;
+            node = node->right;
             count++;
             continue;
         }
-        if (key<node->key)
+        if (key < node->key)
         {
-            back=node;
-            node=node->left;
+            back = node;
+            node = node->left;
             count++;
             continue;
         }
         
-        if (node->key==key && node->Data==Data)
+        if (node->key == key && node->Data == Data)
         {
-            if (node->right==NULL && node->left==NULL)
+            if (node->right == NULL && node->left == NULL)
             {
-                if (back->left==node)
+                if (back->left == node)
                 {
-                    back->left=NULL;
+                    back->left = NULL;
                 }
-                if (back->right==node)
+                if (back->right == node)
                 {
-                    back->right=NULL;
+                    back->right = NULL;
                 }
                 free(node);
                 break;
             }
-            if (node->right!=NULL && node->left==NULL)
+            if (node->right != NULL && node->left == NULL)
             {
-                if (back->left==node)
+                if (back->left == node)
                 {
-                    back->left=node->right;
+                    back->left = node->right;
                 }
-                if (back->right==node)
+                if (back->right == node)
                 {
-                    back->right=node->right;
+                    back->right = node->right;
                 }
                 free(node);
             }
-            if (node->right==NULL && node->left!=NULL)
+            if (node->right == NULL && node->left != NULL)
             {
-                if (back->left==node)
+                if (back->left == node)
                 {
-                    back->left=node->left;
+                    back->left = node->left;
                 }
-                if (back->right==node)
+                if (back->right == node)
                 {
-                    back->right=node->left;
+                    back->right = node->left;
                 }
                 free(node);
             }
@@ -203,18 +200,18 @@ void delete(struct Tree* tree, int key, double Data)
 void wfs(struct Tree *tree)
 {
     struct Queue *queue;
-    queue=new_queue();
+    queue = new_queue();
     push_queue(queue, tree->head);
     
-    while (IsEmptyQueue(queue)==1)
+    while (IsEmptyQueue(queue) == 1)
     {
         struct Node* node;
         pop_queue(queue, &node);
-        if (node->left!=NULL)
+        if (node->left != NULL)
         {
             push_queue(queue, node->left);
         }
-        if (node->right!=NULL)
+        if (node->right != NULL)
         {
             push_queue(queue, node->right);
         }
@@ -226,12 +223,12 @@ void wfs(struct Tree *tree)
 void dfs(struct Node *tree_head)
 {
     printf("%d ", tree_head->key);
-    if (tree_head->left!=NULL)
+    if (tree_head->left != NULL)
     {
         dfs(tree_head->left);
     }
     printf("\n");
-    if (tree_head->right!=NULL)
+    if (tree_head->right != NULL)
     {
         dfs(tree_head->right);
     }
@@ -244,7 +241,7 @@ int main()
     scanf("%d", &HeadData);
     
     struct Tree *tree;
-    tree=new_tree();
+    tree = new_tree();
     push(tree, 0, 1);
     push(tree, 20, 1);
     push(tree, 5, 1);
@@ -259,19 +256,9 @@ int main()
     push(tree, 13, 1);
     push(tree, -4, 1);
     push(tree, 11, 1);
-    
-    //delete(tree, 15, 1);
-    
-   /* struct Queue *queue;
-    queue=new_queue();
-    push_queue(queue, tree->head);
-    push_queue(queue, tree->head->left);*/
-    
+   
     wfs(tree);
-    
     printf("<<<<<>>>>>>\n");
     dfs(tree->head);
-    
-    
     return  0;
 }
