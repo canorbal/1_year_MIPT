@@ -29,6 +29,3 @@
 
 ***
 По вопросам: [Ушаков Роман] (https://vk.com/romaushakov1000), canorbal@gmail.com
-
-
-![](http://cs8.pikabu.ru/post_img/2016/02/11/10/1455207403181485600.jpg)
