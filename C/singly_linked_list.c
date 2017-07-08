@@ -1,21 +1,38 @@
+/* 
+    singly linked list realization 
+    
+    sources:
+        http://www.geeksforgeeks.org/linked-list-set-1-introduction/
+        https://neerc.ifmo.ru/wiki/index.php?title=Список [ru]
+
+    usage:
+        all examples of using functions with singly linked list 
+        are available in main
+ 
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
 
 struct Node
-{
+{   
     int Data;
-    struct Node *next;
+    struct Node* next;
 };
 
 struct List
 {
-    struct Node *head;
+    struct Node* head;
 };
 
 struct List*  list_new()
 {
+    /*
+     * Initialize new singly linked list
+     */
+
     struct List* list = NULL;
     list =  malloc(sizeof(struct List));
     if (list == NULL)
@@ -24,11 +41,17 @@ struct List*  list_new()
         fprintf(stderr, "Error in function 'list_new()\n'");
         return NULL;
     }
-   	return  list;
+    list->head = NULL;
+    return  list;
 }
 
 int insert(struct List *list, int a)
 {
+    /*
+     * add a new element to list
+     * asymptotically O(1)
+     */
+    
     struct Node *node = NULL;
     node = malloc(sizeof(struct Node));
     if (node == NULL)
@@ -56,6 +79,11 @@ void print(struct List *list)
 
 void remov(struct List *list, int a)
 {
+    /*
+     * delete all elements in list
+     * which is equal to a
+     */
+
     struct Node *node = list->head;
     struct Node* free_node;
     while (node->Data == a)
@@ -64,6 +92,7 @@ void remov(struct List *list, int a)
         node = node->next;
         free(free_node);
     }
+
     list->head = node;
     struct Node *back_node = NULL;
     while (node->next != NULL)
@@ -94,6 +123,10 @@ void remov(struct List *list, int a)
 
 void list_delete(struct List *list)
 {
+    /*
+     * free memory from elements in list
+     */
+ 
     struct Node *node = list->head;
     while (node != NULL)
     {
@@ -109,6 +142,8 @@ int main()
 {
     struct List *list;
     list = list_new();
+    
+    printf("inserted 20, 10, 20, 20, 20, 40, 20, 30, 30, 20\n");
     insert(list, 20);
     insert(list, 10);
     insert(list, 20);
@@ -118,11 +153,21 @@ int main()
     insert(list, 20);
     insert(list, 30);
     insert(list, 30);
+    insert(list, 20);
+    printf("list:  ");
     print(list);
+    
+    printf("removed 20 from list\n");
     remov(list, 20);
+    printf("list: ");
     print(list);
+    
+    printf("inserted 50\n");
     insert(list, 50);
+    printf("list :");
     print(list);
+    
+    printf("deleted\n");
     list_delete(list);
     return 0;
 }

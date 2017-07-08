@@ -86,7 +86,7 @@
 
 
 
-(define (insert_num n tree)       ;this func copies tree 1000 times :(. It's bad
+(define (insert_num n tree)       
  (if (> n 0)
   (begin (set! tree (insert (random 1000) tree))
    (insert_num (- n 1) tree))

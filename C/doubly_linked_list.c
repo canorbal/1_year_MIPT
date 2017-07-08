@@ -1,14 +1,13 @@
-/* Calculate the expression in Reverse Polish notation
+/*
+    realization of doubly linked list
 
-    Sources:
+    sources:
+        http://www.geeksforgeeks.org/doubly-linked-list/
+        https://neerc.ifmo.ru/wiki/index.php?title=Список [ru]
 
-        https://ru.wikiversity.org/wiki/Обратная_польская_запись:_примеры_реализации#C
-        https://stackoverflow.com/questions/40328938/how-to-evaluate-reverse-polish-notation-using-stacks
+    usage:
+        see main function
 
-    Example:
-        1 2 + 4 / 5 * 8 7 6 - * + -> 11.75
-
-    Attention! works only with digits and +,-,*,/ operands
 */
 
 #include <stdio.h>
@@ -19,7 +18,7 @@
 
 struct Node
 {
-    double Data;
+    int Data;
     struct Node* next;
     struct Node* back;
 };
@@ -50,12 +49,13 @@ struct List* list_new()
 int check_empty(struct List* list)
 {
     if (list->head == NULL)
+    {
         return 1;
-
+    }
     return 0;
 }
 
-void push(struct List* list, double a)
+void push(struct List* list, int a)
 {
     /*
      * add element to the end of the list
@@ -77,7 +77,7 @@ void push(struct List* list, double a)
     if (node == NULL)
     {
         fprintf(stderr, "Can't allocate memory: %s\n", strerror(errno));
-        fprintf(stderr, "Error in function push with arguement %f\n", a);
+        fprintf(stderr, "Error in function push with arguement %d\n", a);
         return;
     }
 
@@ -87,7 +87,7 @@ void push(struct List* list, double a)
     list->head = node;
 }
 
-void unshift(struct List *list, double a)
+void unshift(struct List *list, int a)
 {
     /*
      * add element to the begining of the list
@@ -111,7 +111,7 @@ void unshift(struct List *list, double a)
     if (Node == NULL)
     {
         fprintf(stderr, "Can't allocate memory: %s\n", strerror(errno));
-        fprintf(stderr, "Error in function unshift with arguement %f\n", a);
+        fprintf(stderr, "Error in function unshift with arguement %d\n", a);
         return;
     }
 
@@ -121,7 +121,7 @@ void unshift(struct List *list, double a)
     node_pointer->back = Node;
 }
 
-void pop(struct List *list, double *x)
+void pop(struct List *list, int *x)
 {
     /*
      * take the last element from list
@@ -145,7 +145,7 @@ void pop(struct List *list, double *x)
     list->head = NULL;
 }
 
-void shift(struct List *list, double *x)
+void shift(struct List *list, int *x)
 {
     /*
      * take the first element from list
@@ -156,8 +156,8 @@ void shift(struct List *list, double *x)
     {
         return;
     }
-
     struct Node* node_pointer = list->head;
+
     if (node_pointer->back == NULL)
     {
         *x = node_pointer->Data;
@@ -170,7 +170,6 @@ void shift(struct List *list, double *x)
     {
         node_pointer = node_pointer->back;
     }
-    printf("%f\n", node_pointer->Data);
     *x = node_pointer->Data;
     node_pointer->next->back = NULL;
     free(node_pointer);
@@ -207,69 +206,96 @@ void print(struct List* list)
     struct Node* node = list->head;
     while (node != NULL)
     {
-        printf("%f ", node->Data);
+        printf("%d ", node->Data);
         node = node->back;
     }
     printf("\n");
 }
 
-
-double result()
+int main()
 {
     struct List* list;
     list = list_new();
+    int x;
+    printf("creates\n");
 
-    char s=1;
-    while (s != '\n')
-    {
-        scanf("%c", &s);
-        if (s == '\n')
-            break;
+    printf("push 10\n");
+    push(list, 10);
+    printf("list: ");
+    print(list);
 
-        if (s >= '0' && s <= '9')
-        {
-            push(list, s-'0');
-        }
+    pop(list, &x);
+    printf("pop last element %d\n", x);
+    printf("list: ");
+    print(list);
 
-        if (s=='+')
-        {
-            double x,y;
-            pop(list, &x);
-            pop(list, &y);
-            push(list, x+y);
-        }
+    printf("push -150\n");
+    push(list, 150);
+    printf("list: ");
+    print(list);
 
-        if (s=='-')
-        {
-            double x,y;
-            pop(list, &x);
-            pop(list, &y);
-            push(list, y-x);
-        }
+    shift(list, &x);
+    printf("shift last element %d\n", x);
+    printf("list: ");
+    print(list);
 
-        if (s=='*')
-        {
-            double x,y;
-            pop(list, &x);
-            pop(list, &y);
-            push(list, x*y);
-        }
+    printf("unshift 100\n");
+    unshift(list, 100);
+    printf("list: ");
+    print(list);
 
-        if (s=='/')
-        {
-            double x,y;
-            pop(list, &x);
-            pop(list, &y);
-            push(list, y/x);
-        }
-    }
-    double b;
-    pop(list, &b);
-    return  b;
-}
+    pop(list, &x);
+    printf("pop last element %d\n", x);
+    printf("list ");
+    print(list);
 
-int main()
-{
-    printf("%f\n", result());
+    printf("unshift -10\n");
+    unshift(list, -10);
+    printf("list: ");
+    print(list);
+
+    printf("unshift -20\n");
+    unshift(list, -20);
+    printf("list: ");
+    print(list);
+
+    printf("push 20, 30, 40\n");
+    push(list, 20);
+    push(list, 30);
+    push(list, 40);
+    printf("list: ");
+    print(list);
+
+    pop(list, &x);
+    printf("pop last element %d \n", x);
+    printf("list: ");
+    print(list);
+
+    pop(list, &x);
+    printf("pop last element %d \n", x);
+    printf("list: ");
+    print(list);
+
+    printf("push 20, 30, 40\n");
+    push(list, 20);
+    push(list, 30);
+    push(list, 40);
+    printf("list: ");
+    print(list);
+
+    shift(list, &x);
+    printf("shift last element %d\n", x);
+    printf("list: ");
+    print(list);
+
+    unshift(list, -100);
+    printf("unshift -100\n");
+    printf("list: ");
+    print(list);
+
+    printf("reverse\n");
+    list_reverse(list);
+    printf("list: ");
+    print(list);
     return 0;
 }
