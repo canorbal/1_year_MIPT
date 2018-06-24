@@ -3,15 +3,17 @@
 
 
 class Tree:
-
+    """
+    Interface for working with avl trees
+    """
     def __init__(self, data):
         self.root = Node(data)
 
     def insert(self, data):
-        if self.root == None:
+        if self.root is None:
             self.root = Node(data)
         else:
-            self.root = self.root.my_insert(data)
+            self.root = self.root.insert(data)
 
     def print_out(self):
         self.root.print_node()
@@ -19,8 +21,11 @@ class Tree:
     def remove(self, data):
         self.root = self.root.remove(data)
 
-class Node:
 
+class Node(object):
+    """
+    Node object interface
+    """
     def __init__(self, data):
         self.data = data
         self.left = None
@@ -28,10 +33,9 @@ class Node:
         self.height = 1
 
     def bfactor(self):
-        '''
-        calculate balance factor of Node
-        '''
-
+        """
+        :return: difference between right and left subtrees
+        """
         if self.left is None:
             if self.right is None:
                 return 0
@@ -41,114 +45,105 @@ class Node:
             if self.right is None:
                 return self.left.height
             else:
-                return self.right.height-self.left.height
+                return self.right.height - self.left.height
 
-    def fixheight(self):
-        '''
-        recalculate node heights
-        '''
+    def fix_height(self):
+        """
+        Fix height value in current node
+        """
 
-        if self.left == None:
-            if self.right == None:
+        if self.left is None:
+            if self.right is None:
                 self.height = 1
             else:
-                self.height = self.right.height+1
+                self.height = self.right.height + 1
         else:
             if self.right is None:
-                self.height = self.left.height+1
+                self.height = self.left.height + 1
             else:
-                self.height = max(self.left.height, self.right.height)+1
+                self.height = max(self.left.height, self.right.height) + 1
 
-    def rotateright(self):
+    def rotate_right(self):
         q = self.left
         self.left = self.left.right
         q.right = self
-        self.fixheight()
+        self.fix_height()
         q.fixheight()
         return q
 
-    def rotateleft(self):
+    def rotate_left(self):
         p = self.right
         self.right = self.right.left
         p.left = self
-        self.fixheight()
-        p.fixheight()
+        self.fix_height()
+        p.fix_height()
         return p
 
     def balance(self):
-        '''
-        function to balance Nodes
-        '''
+        """
+        Function to balance nodes
+        """
 
-        self.fixheight()
+        self.fix_height()
 
         if self.bfactor() == 2:
             if self.right is None:
-                return self.rotateright()
+                return self.rotate_right()
             if self.right.bfactor()<0:
                 self.right = self.right.rotateright()
-            return self.rotateleft()
+            return self.rotate_left()
 
         if self.bfactor() == -2:
             if self.left is None:
-                return self.rotateleft()
-            if self.left.bfactor()>0:
+                return self.rotate_left()
+            if self.left.bfactor() > 0:
                 self.left = self.left.rotateleft()
-            return self.rotateright()
+            return self.rotate_right()
 
         return self
 
-    def my_insert(self, data):
-        '''
-        insertion a node with data key
-        '''
+    def insert(self, data):
+        """
+        Insertion a node with data
+        """
 
-        if data>=self.data:
+        if data >= self.data:
             if self.right is None:
                 self.right = Node(data)
                 self.height = 2
                 return self
             else:
-                self.right = self.right.my_insert(data)
+                self.right = self.right.insert(data)
 
-        if data<self.data:
+        if data < self.data:
             if self.left is None:
                 self.left = Node(data)
                 self.height = 2
                 return self
             else:
-                self.left = self.left.my_insert(data)
+                self.left = self.left.insert(data)
 
-        node2=self.balance()
-        return node2
+        return self.balance()
 
-    def print_node(self, level = 0):
+    def print_node(self, level=0):
 
         if self.right:
             self.right.print_node(level + 1)
-            print( '\t' * level), (' /')
-        print('\t' * level), self.data
+            print('\t' * level, ' /')
+        print('\t' * level, self.data)
         if self.left:
-            print( '\t' * level), (' \\')
+            print('\t' * level, ' \\')
             self.left.print_node(level + 1)
 
-    def print_Node(self):
 
-        print self.data
-        if self.left == None:
-            if self.right == None:
-                return
-            else:
-                self.right.print_Node()
-        else:
-            self.left.print_Node()
+if __name__ == "__main__":
 
-tree = Tree(10)
-tree.insert(20)
-tree.insert(5)
-tree.insert(25)
-tree.insert(30)
-tree.insert(1)
-tree.insert(45)
-tree.insert(60)
-tree.print_out()
+    tree = Tree(10)
+    tree.insert(20)
+    tree.insert(5)
+    tree.insert(25)
+    tree.insert(30)
+    tree.insert(1)
+    tree.insert(45)
+    tree.insert(60)
+    tree.print_out()
